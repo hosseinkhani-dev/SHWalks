@@ -4,6 +4,7 @@ using SHWalks.Application.AuthServices.RegisterServices;
 using SHWalks.Application.AuthServices.RegisterServices.DTOs;
 using SHWalks.Application.AuthServices.TokenServices;
 using SHWalks.Application.AuthServices.TokenServices.DTOs;
+using System.Threading.Tasks;
 
 namespace SHWalks.API.Controllers
 {
@@ -25,7 +26,7 @@ namespace SHWalks.API.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDto dto)
         {
-            if(await _registerService.RegisterAsync(dto))
+            if (await _registerService.RegisterAsync(dto))
             {
                 return Ok("User was registerd");
             }
@@ -34,16 +35,15 @@ namespace SHWalks.API.Controllers
         }
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody] LoginDto dto)
+        public async Task<IActionResult> Login([FromBody] LoginDto dto)
         {
-            if (dto.UserName == "admin" && dto.Password == "Password")
-            {
-                var token = _tokenService.CreateToken(dto.UserName, "Admin");
 
-                return Ok(token);
-            }
+            var token = await _tokenService.CreateTokenAsync(dto);
 
+            if(token == null)
             return Unauthorized("Invalid username or password!");
+
+            return Ok(token);
         }
     }
 }

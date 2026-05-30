@@ -1,7 +1,9 @@
-﻿namespace SHWalks.Application.AuthServices.TokenServices
+﻿using SHWalks.Application.AuthServices.TokenServices.DTOs;
+
+namespace SHWalks.Application.AuthServices.TokenServices
 {
     public interface ITokenService
     {
-        string CreateToken(string userName, string role);
+        Task<string?> CreateTokenAsync(LoginDto dto);
     }
 }

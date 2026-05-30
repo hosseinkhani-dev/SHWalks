@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SHWalks.Application.Areas;
 using SHWalks.Application.Areas.DTOs;
 
@@ -6,6 +7,8 @@ namespace SHWalks.API.Controllers
 {
     [Route("api/areas")]
     [ApiController]
+    [Authorize]
+
     public class AreasController : ControllerBase
     {
         private readonly IAreaRepository _areaRepository;

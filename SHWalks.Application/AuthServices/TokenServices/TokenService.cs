@@ -4,7 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace SHWalks.Application.TokenServices
+namespace SHWalks.Application.AuthServices.TokenServices
 {
     public class TokenService : ITokenService
     {

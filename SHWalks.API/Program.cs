@@ -9,7 +9,9 @@ using SHWalks.Infrastructure.Persistence;
 using SHWalks.Infrastructure.Repositories.Areas;
 using SHWalks.Infrastructure.Repositories.Walks;
 using System.Text;
-using SHWalks.Application.TokenServices;
+using Microsoft.AspNetCore.Identity;
+using SHWalks.Application.AuthServices.TokenServices;
+using SHWalks.Application.AuthServices.RegisterServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,7 +31,25 @@ builder.Services.AddScoped<IAreaService, AreaAppService>();
 builder.Services.AddScoped<IWalkRepository, SqlWalkRepository>();
 builder.Services.AddScoped<IWalkService, WalkAppService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IRegisterService, RegisterService>();
 builder.Services.AddAutoMapper(cfg => { }, typeof(AutoMapperProfiles));
+
+builder.Services.AddIdentityCore<IdentityUser>()
+    .AddRoles<IdentityRole>()
+    .AddTokenProvider<DataProtectorTokenProvider<IdentityUser>>("SHWalks")
+    .AddEntityFrameworkStores<SHWalksDbContext>()
+    .AddDefaultTokenProviders();
+
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireDigit = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequiredLength = 3;
+});
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -48,7 +68,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment()) 
+if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();

@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SHWalks.Application.TokenServices;
-using SHWalks.Application.TokenServices.DTOs;
+using SHWalks.Application.AuthServices.RegisterServices;
+using SHWalks.Application.AuthServices.RegisterServices.DTOs;
+using SHWalks.Application.AuthServices.TokenServices;
+using SHWalks.Application.AuthServices.TokenServices.DTOs;
 
 namespace SHWalks.API.Controllers
 {
@@ -10,10 +12,25 @@ namespace SHWalks.API.Controllers
     public class AuthController : ControllerBase
     {
         private readonly ITokenService _tokenService;
+        private readonly IRegisterService _registerService;
 
-        public AuthController(ITokenService tokenService)
+        public AuthController(
+            ITokenService tokenService,
+            IRegisterService registerService)
         {
             _tokenService = tokenService;
+            _registerService = registerService;
+        }
+
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] RegisterDto dto)
+        {
+            if(await _registerService.RegisterAsync(dto))
+            {
+                return Ok("User was registerd");
+            }
+
+            return BadRequest("Somthing went wrong!");
         }
 
         [HttpPost("login")]

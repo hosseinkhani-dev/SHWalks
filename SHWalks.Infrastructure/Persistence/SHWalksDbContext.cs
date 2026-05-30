@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using SHWalks.Domain;
 
 namespace SHWalks.Infrastructure.Persistence
 {
-    public class SHWalksDbContext : DbContext
+    public class SHWalksDbContext : IdentityDbContext<IdentityUser>
     {
         public SHWalksDbContext(DbContextOptions options) : base(options) { }
         
@@ -16,6 +18,32 @@ namespace SHWalks.Infrastructure.Persistence
             base.OnModelCreating(modelBuilder);
 
             AreasSeedData(modelBuilder);
+
+            IdentityRolesSeedData(modelBuilder);
+        }
+
+        private static void IdentityRolesSeedData(ModelBuilder modelBuilder)
+        {
+            var readerId = "465a4f5c-552f-4ea8-874f-0847bf598745";
+            var writerId = "ca74180f-96c4-43cc-8d09-1d2c7b5ae53f";
+
+            var roles = new List<IdentityRole>
+            {
+                new IdentityRole
+                {
+                    Id = readerId,
+                    Name = "Reader",
+                    NormalizedName = "READER"
+                },
+                new IdentityRole
+                {
+                    Id = writerId,
+                    Name = "Writer",
+                    NormalizedName = "WRITER"
+                }
+            };
+
+            modelBuilder.Entity<IdentityRole>().HasData(roles);
         }
 
         private static void AreasSeedData(ModelBuilder modelBuilder)

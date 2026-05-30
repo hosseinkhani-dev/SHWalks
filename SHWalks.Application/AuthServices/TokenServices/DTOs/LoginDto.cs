@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SHWalks.Application.TokenServices.DTOs
+namespace SHWalks.Application.AuthServices.TokenServices.DTOs
 {
     public class LoginDto
     {

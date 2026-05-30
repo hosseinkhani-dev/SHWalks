@@ -1,4 +1,4 @@
-﻿namespace SHWalks.Application.TokenServices
+﻿namespace SHWalks.Application.AuthServices.TokenServices
 {
     public interface ITokenService
     {

@@ -7,8 +7,7 @@ namespace SHWalks.API.Controllers
 {
     [Route("api/areas")]
     [ApiController]
-    [Authorize]
-
+    [ValidationModel]
     public class AreasController : ControllerBase
     {
         private readonly IAreaRepository _areaRepository;
@@ -29,7 +28,7 @@ namespace SHWalks.API.Controllers
             return Ok(dtos);
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id:guid}")]
         public async Task<IActionResult> GetById(Guid id)
         {
             var dto = await _areaRepository.GetByIdAsync(id);
@@ -38,14 +37,16 @@ namespace SHWalks.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> Add([FromBody] AddAreaDto dto)
         {
             var areaId = await _areaService.AddAsync(dto);
 
-            return CreatedAtAction(nameof(GetById), areaId, dto);
+            return CreatedAtAction(nameof(GetById), new { id = areaId }, dto);
         }
 
-        [HttpPut("id")]
+        [HttpPut("{id:guid}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> Update(Guid id, [FromBody] UpdateAreaDto dto)
         {
             await _areaRepository.UpdateAsync(dto, id);
@@ -53,7 +54,8 @@ namespace SHWalks.API.Controllers
             return Ok(dto);
         }
 
-        [HttpDelete("id")]
+        [HttpDelete("{id:guid}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> Delete(Guid id)
         {
             await _areaRepository.DeleteAsync(id);

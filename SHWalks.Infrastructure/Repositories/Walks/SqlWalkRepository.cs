@@ -35,7 +35,7 @@ namespace SHWalks.Infrastructure.Repositories.Walks
                     Name = walk.Name,
                     Description = walk.Description,
                     ImageUrl = walk.ImageUrl,
-                    Lenght = walk.Lenght,
+                    Lenght = walk.Length,
                     Difficulty = walk.Difficulty,
                     AreaId = walk.AreaId
                 }).AsQueryable();
@@ -62,7 +62,7 @@ namespace SHWalks.Infrastructure.Repositories.Walks
                     Name = walk.Name,
                     Description = walk.Description,
                     ImageUrl = walk.ImageUrl,
-                    Lenght = walk.Lenght,
+                    Lenght = walk.Length,
                     Difficulty = walk.Difficulty,
                     AreaDto = new GetAreaDto
                     {
@@ -92,7 +92,7 @@ namespace SHWalks.Infrastructure.Repositories.Walks
             walk.Name = !string.IsNullOrWhiteSpace(dto.Name) ? dto.Name : walk.Name;
             walk.Description = !string.IsNullOrWhiteSpace(dto.Description)
                 ? dto.Description : walk.Description;
-            walk.Lenght = dto.Lenght ?? walk.Lenght;
+            walk.Length = dto.Lenght ?? walk.Length;
             walk.ImageUrl = !string.IsNullOrWhiteSpace(dto.ImageUrl)
                 ? dto.ImageUrl : walk.ImageUrl;
             walk.Difficulty = dto.Difficulty ?? walk.Difficulty;

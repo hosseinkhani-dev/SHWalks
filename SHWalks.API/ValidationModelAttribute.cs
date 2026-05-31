@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace SHWalks.API;
 
-public class ValidationModelAttribiute : ActionFilterAttribute
+public class ValidationModelAttribute : ActionFilterAttribute
 {
     public override void OnActionExecuting(ActionExecutingContext context)
     {

@@ -14,6 +14,7 @@ using SHWalks.Application.AuthServices.TokenServices;
 using SHWalks.Application.AuthServices.RegisterServices;
 using Microsoft.OpenApi.Models;
 using System.Security.Cryptography.Xml;
+using SHWalks.Application.ImageStorageServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -55,12 +56,15 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services.AddDbContext<SHWalksDbContext>(option =>
 option.UseSqlServer(builder.Configuration.GetConnectionString("SHWalksConnectionString")));
 
+builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddScoped<IAreaRepository, SqlAreaRepository>();
 builder.Services.AddScoped<IAreaService, AreaAppService>();
 builder.Services.AddScoped<IWalkRepository, SqlWalkRepository>();
 builder.Services.AddScoped<IWalkService, WalkAppService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IRegisterService, RegisterService>();
+builder.Services.AddScoped<IImageStorageService, ImageStorageService>();
 builder.Services.AddAutoMapper(cfg => { }, typeof(AutoMapperProfiles));
 
 builder.Services.AddIdentityCore<IdentityUser>()
@@ -104,6 +108,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseStaticFiles();
 
 app.UseAuthentication();
 app.UseAuthorization();

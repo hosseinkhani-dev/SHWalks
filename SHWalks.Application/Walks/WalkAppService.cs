@@ -29,7 +29,7 @@ namespace SHWalks.Application.Walks
                 Id = Guid.NewGuid(),
                 Name = dto.Name,
                 Description = dto.Description,
-                Lenght = dto.Lenght,
+                Length = dto.Length,
                 ImageUrl = dto.ImageUrl,
                 Difficulty = dto.Difficulty,
                 AreaId = dto.AreaId,

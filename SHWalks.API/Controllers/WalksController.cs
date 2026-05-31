@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SHWalks.Application.Walks;
 using SHWalks.Application.Walks.DTOs;
@@ -7,6 +8,7 @@ namespace SHWalks.API.Controllers
 {
     [Route("api/walks")]
     [ApiController]
+    [ValidationModelAttribute]
     public class WalksController : ControllerBase
     {
         private readonly IWalkRepository _walkRepository;
@@ -24,15 +26,12 @@ namespace SHWalks.API.Controllers
         }
 
         [HttpPost]
-        [ValidationModelAttribiute]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> Add([FromBody] AddWalkDto dto)
         {
             var walkId = await _walkService.AddAsync(dto);
 
-            if (walkId == null)
-                return NoContent();
-
-            return Ok(walkId);
+            return CreatedAtAction(nameof(GetById), new { id = walkId }, dto);
         }
 
         [HttpGet]
@@ -42,13 +41,10 @@ namespace SHWalks.API.Controllers
         {
             var walksDto = await _walkRepository.GetAllAsync(filterOn, filterQuery);
 
-            if (!walksDto.Any())
-                return NotFound();
-
             return Ok(walksDto);
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id:guid}")]
         public async Task<IActionResult> GetById(Guid id)
         {
             var walkDto = await _walkRepository.GetByIdAsync(id);
@@ -59,9 +55,10 @@ namespace SHWalks.API.Controllers
             return Ok(walkDto);
         }
 
-        [HttpPut("id")]
+        [HttpPut("{id:guid}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> Update(
-            [FromQuery] Guid id,
+             Guid id,
             [FromBody] UpdateWalkDto dto)
         {
             var walk = await _walkRepository.UpdateAsync(id, dto);

@@ -23,4 +23,8 @@
     <ProjectReference Include="..\SHWalks.Infrastructure\SHWalks.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
 </Project>

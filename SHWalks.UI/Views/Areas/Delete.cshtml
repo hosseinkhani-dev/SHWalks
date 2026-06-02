@@ -1,0 +1,33 @@
+﻿@model SHWalks.UI.Models.AreaViewModel
+
+@{
+    ViewData["Title"] = "Delete Area";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 shadow p-4 rounded bg-white border border-danger">
+
+            <h2 class="mb-3 text-danger fw-bold">Are you absolutely sure?</h2>
+            <p class="text-muted mb-4">You are about to permanently delete this region from the SHWalks application database. This action cannot be undone.</p>
+
+            <div class="d-flex align-items-center gap-3 bg-light p-3 rounded mb-4">
+                <img src="@Model.ImageUrl" alt="@Model.Name" class="rounded" style="width: 80px; height: 80px; object-fit: cover;">
+                <div>
+                    <h4 class="mb-1 fw-bold text-dark">@Model.Name</h4>
+                    <span class="text-muted small">ID: @Model.Id</span>
+                </div>
+            </div>
+
+            <form asp-action="Delete" method="post">
+                <input type="hidden" asp-for="Id" />
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-danger flex-grow-1 fw-semibold">Yes, Delete Area</button>
+                    <a asp-action="Index" class="btn btn-outline-secondary">Cancel and Go Back</a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

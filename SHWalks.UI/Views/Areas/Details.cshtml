@@ -10,10 +10,11 @@
 
             <a asp-action="Index" class="btn btn-outline-secondary mb-3">&larr; Back to Areas</a>
 
-            <div class="card shadow-lg border-0 rounded-3 overflow-hidden">
-
-                <img src="@Model.ImageUrl" class="img-fluid object-fit-cover" alt="@Model.Name" 
-                style="width: 100%; max-height: 400px;">
+            <div class="card shadow-lg border-0 rounded-end overflow-hidden">
+                <div style="align-items: center;">
+                    <img src="@Model.ImageUrl" class="img-fluid object-fit-cover rounded-1" alt="@Model.Name"
+                         style="width: fit-content; max-height: 300px;">
+                </div>
 
                 <div class="card-body p-4">
                     <h1 class="display-4 fw-bold text-primary mb-3">@Model.Name</h1>
@@ -30,7 +31,14 @@
                     </p>
 
                     <div class="d-flex gap-2 mt-4">
-                        <a href="#" class="btn btn-warning px-4">Edit Area Details</a>
+                        <a class="btn btn-outline-success px-4"
+                           asp-controller="Areas"
+                           asp-action="Edit"
+                           asp-route-id="@Model.Id">Edit Area Details</a>
+
+                        <a asp-controller="Areas" 
+                        asp-action="Delete"
+                        asp-route-id="@Model.Id" class="btn btn-outline-danger btn-sm">Delete</a>
                     </div>
                 </div>
 

@@ -6,7 +6,7 @@ namespace SHWalks.UI.Models
     {
         [Required(ErrorMessage = "Area name is required")]
         public string Name { get; set; }
-        [Display(Name = "Image URL")]
-        public string? ImageUrl { get; set; }
+        [Display(Name = "Upload Area Image")]
+        public IFormFile? File { get; set; }
     }
 }

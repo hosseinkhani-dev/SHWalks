@@ -37,7 +37,7 @@ namespace SHWalks.API.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Writer")]
+        //[Authorize(Roles = "Writer")]
         public async Task<IActionResult> Add([FromBody] AddAreaDto dto)
         {
             var areaId = await _areaService.AddAsync(dto);
@@ -46,7 +46,7 @@ namespace SHWalks.API.Controllers
         }
 
         [HttpPut("{id:guid}")]
-        [Authorize(Roles = "Writer")]
+        //[Authorize(Roles = "Writer")]
         public async Task<IActionResult> Update(Guid id, [FromBody] UpdateAreaDto dto)
         {
             await _areaRepository.UpdateAsync(dto, id);
@@ -55,7 +55,7 @@ namespace SHWalks.API.Controllers
         }
 
         [HttpDelete("{id:guid}")]
-        [Authorize(Roles = "Writer")]
+        //[Authorize(Roles = "Writer")]
         public async Task<IActionResult> Delete(Guid id)
         {
             await _areaRepository.DeleteAsync(id);

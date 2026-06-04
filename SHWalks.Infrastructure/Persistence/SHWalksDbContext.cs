@@ -8,7 +8,7 @@ namespace SHWalks.Infrastructure.Persistence
     public class SHWalksDbContext : IdentityDbContext<IdentityUser>
     {
         public SHWalksDbContext(DbContextOptions options) : base(options) { }
-        
+
         public DbSet<Walk> Walks { get; set; }
         public DbSet<Area> Areas { get; set; }
 
@@ -20,6 +20,8 @@ namespace SHWalks.Infrastructure.Persistence
             AreasSeedData(modelBuilder);
 
             IdentityRolesSeedData(modelBuilder);
+
+            WalksSeedData(modelBuilder);
         }
 
         private static void IdentityRolesSeedData(ModelBuilder modelBuilder)
@@ -54,23 +56,65 @@ namespace SHWalks.Infrastructure.Persistence
                 {
                     Id = Guid.Parse("95e336d7-9003-41da-aaeb-0a23fdff0fb8"),
                     Name = "Maaliabad",
-                    ImageUrl = "https://www.digikala.com/mag/wp-content/uploads/2025/02/AI-ART-main-min.webp",
+                    ImageUrl = "/images/MaaliAbad.jpg",
                 },
                 new Area
                 {
                     Id = Guid.Parse("4ef52928-b2fb-441c-a56d-f059215ebcc6"),
                     Name = "Sadra",
-                    ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSlkQoPCwn6UWhVoGekUJuih5kO9kYSTQHdA&s",
+                    ImageUrl = "/images/Sadra.jpeg",
                 },
                 new Area
                 {
                     Id = Guid.Parse("8888ed03-4317-4467-be4e-c386b8384312"),
                     Name = "Golestan",
-                    ImageUrl = "https://learn.zoner.com/wp-content/uploads/2025/04/zoner-ai-image-creator.jpg",
+                    ImageUrl = "/images/Golestan.jpg",
+                },
+                new Area
+                {
+                    Id = Guid.Parse("112038ee-7894-4efe-bcbc-68eecb6e09f6"),
+                    Name = "Afif Abad",
+                    ImageUrl = "/images/Afif Abad.jpg",
+                },
+                 new Area
+                {
+                    Id = Guid.Parse("15eeface-f864-4caa-969d-9e9979e0447b"),
+                    Name = "Afif Abad",
+                    ImageUrl = "/images/Zand Vakil.jpeg",
                 },
             };
 
             modelBuilder.Entity<Area>().HasData(areas);
+        }
+
+        private static void WalksSeedData(ModelBuilder modelBuilder)
+        {
+            var walks = new List<Walk>()
+        {
+        new Walk
+        {
+            Id = Guid.Parse("11111111-2222-3333-4444-555555555555"),
+            Name = "Green Way Trail",
+            Description = "A beautiful, easy walk through the heart of Maaliabad parks, perfect for families.",
+            Length = 3.5,
+            ImageUrl = "/images/Siraz1.jpg",
+            Difficulty = Difficulty.Easy, 
+            AreaId = Guid.Parse("95e336d7-9003-41da-aaeb-0a23fdff0fb8")
+        },
+
+        new Walk
+        {
+            Id = Guid.Parse("66666666-7777-8888-9999-000000000000"),
+            Name = "Sadra Valley Trek",
+            Description = "A challenging trail highlighting the scenic rocky valleys and hills surrounding Sadra.",
+            Length = 7.2,
+            ImageUrl = "/images/Shiraz2.jpg",
+            Difficulty = Difficulty.Hard, 
+            AreaId = Guid.Parse("4ef52928-b2fb-441c-a56d-f059215ebcc6")
+        }
+    };
+
+            modelBuilder.Entity<Walk>().HasData(walks);
         }
     }
 }

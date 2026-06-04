@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SHWalks.Infrastructure.Persistence;
 
@@ -11,9 +12,11 @@ using SHWalks.Infrastructure.Persistence;
 namespace SHWalks.Infrastructure.Migrations
 {
     [DbContext(typeof(SHWalksDbContext))]
-    partial class SHWalksDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260604165856_UpdateAreaSeedData")]
+    partial class UpdateAreaSeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -315,28 +318,6 @@ namespace SHWalks.Infrastructure.Migrations
                     b.HasIndex("AreaId");
 
                     b.ToTable("Walks");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("11111111-2222-3333-4444-555555555555"),
-                            AreaId = new Guid("95e336d7-9003-41da-aaeb-0a23fdff0fb8"),
-                            Description = "A beautiful, easy walk through the heart of Maaliabad parks, perfect for families.",
-                            Difficulty = (byte)1,
-                            ImageUrl = "/images/Siraz1.jpg",
-                            Length = 3.5,
-                            Name = "Green Way Trail"
-                        },
-                        new
-                        {
-                            Id = new Guid("66666666-7777-8888-9999-000000000000"),
-                            AreaId = new Guid("4ef52928-b2fb-441c-a56d-f059215ebcc6"),
-                            Description = "A challenging trail highlighting the scenic rocky valleys and hills surrounding Sadra.",
-                            Difficulty = (byte)3,
-                            ImageUrl = "/images/Shiraz2.jpg",
-                            Length = 7.2000000000000002,
-                            Name = "Sadra Valley Trek"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

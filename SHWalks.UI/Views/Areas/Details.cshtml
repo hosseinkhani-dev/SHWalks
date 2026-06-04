@@ -31,21 +31,31 @@
                         Soon, you will be able to view all the walking paths associated with this beautiful neighborhood.
                     </p>
 
-                    <div class="d-flex gap-2 mt-4">
-                        <a class="btn btn-outline-success px-4"
-                           asp-controller="Areas"
-                           asp-action="Edit"
-                           asp-route-id="@Model.Id">Edit Area Details</a>
+                    @if (User.Identity != null && User.Identity.IsAuthenticated)
+                    {
+                        <div class="d-flex gap-2 mt-4">
+                            <a class="btn btn-outline-success px-4"
+                               asp-controller="Areas"
+                               asp-action="Edit"
+                               asp-route-id="@Model.Id">Edit Area Details</a>
 
-                        <a asp-controller="Areas"
-                           asp-action="Delete"
-                           asp-route-id="@Model.Id" class="btn btn-outline-danger btn-sm">Delete</a>
+                            <a asp-controller="Areas"
+                               asp-action="Delete"
+                               asp-route-id="@Model.Id" class="btn btn-outline-danger btn-sm">Delete</a>
+                        </div>
+                    }
+                    else
+                    {
+                    <a asp-controller="Auth" asp-action="Register" class="btn btn-outline-primary px-3 shadow-sm">
+                        Sign up to Add/Edit Trails
+                    </a>
+                    }
+                    
+                    <a class="btn btn-outline-success"
+                       asp-controller="Areas"
+                       asp-action="WalksByArea"
+                       asp-route-id="@Model.Id">Walks</a>
 
-                        <a class="btn btn-outline-success"
-                           asp-controller="Areas"
-                           asp-action="WalksByArea"
-                           asp-route-id="@Model.Id">Walks</a>
-                    </div>
                 </div>
 
             </div>

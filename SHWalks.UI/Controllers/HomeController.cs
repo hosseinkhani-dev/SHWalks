@@ -18,6 +18,7 @@ namespace SHWalks.UI.Controllers
             return View();
         }
 
+        [Route("Home/About")]
         public IActionResult Privacy()
         {
             return View();

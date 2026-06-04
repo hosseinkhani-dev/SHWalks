@@ -26,7 +26,7 @@ namespace SHWalks.API.Controllers
         }
 
         [HttpPost]
-        //[Authorize(Roles = "Writer")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> Add([FromBody] AddWalkDto dto)
         {
             var walkId = await _walkService.AddAsync(dto);
@@ -56,7 +56,7 @@ namespace SHWalks.API.Controllers
         }
 
         [HttpPut("{id:guid}")]
-        //[Authorize(Roles = "Writer")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> Update(
              Guid id,
             [FromBody] UpdateWalkDto dto)

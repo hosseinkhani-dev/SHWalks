@@ -76,8 +76,18 @@
 
             <div class="card shadow-sm border-0 p-3 bg-light rounded">
                 <div class="d-flex gap-2">
-                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-secondary flex-grow-1 fw-semibold btn-sm">Edit Trail</a>
-                    <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger btn-sm">Delete</a>
+                    @if(User.Identity != null && User.Identity.IsAuthenticated)
+                    {
+                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-secondary flex-grow-1 fw-semibold btn-sm">Edit Trail</a>
+                        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger btn-sm">Delete</a>
+                    }
+                    else
+                    {
+                        <a asp-controller="Auth" asp-action="Register" class="btn btn-outline-primary px-3 shadow-sm">
+                            Sign up to Add/Edit Trails
+                        </a>
+                    }
+
                 </div>
             </div>
         </div>

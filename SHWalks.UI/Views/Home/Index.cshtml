@@ -1,6 +1,43 @@
 ﻿@{
-    ViewData["Title"] = "Home";
+    ViewData["Title"] = "Home Dashboard";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Welcon to My App</p>
+<div class="bg-light rounded p-5 mb-4 border-0 shadow-sm position-relative overflow-hidden" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+    <div class="row align-items-center py-3">
+        <div class="col-md-8">
+            <h1 class="display-4 fw-bold text-dark mb-2">Welcome to SHWalks</h1>
+            <p class="fs-5 text-muted mb-4">A professional full-stack software application designed to track, explore, and manage stunning walking trails and regional geographical environments.</p>
+
+            <div class="d-flex flex-wrap gap-2">
+                <a asp-controller="Walks" asp-action="Index" class="btn btn-primary btn-lg px-4 fw-semibold shadow-sm">Explore Trails</a>
+                @if (User.Identity == null || !User.Identity.IsAuthenticated)
+                {
+                    <a asp-controller="Auth" asp-action="Register" class="btn btn-outline-secondary btn-lg px-4 fw-semibold">Create An Account</a>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mt-2">
+
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm border-0 rounded p-3 bg-white">
+            <div class="card-body">
+                <div class="text-primary mb-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-cpu-fill" viewBox="0 0 16 16">
+                        <path d="M6.5 1a.5.5 0 0 0-.5.5V3h-.5a.5.5 0 0 0-.5.5V4h-1v-.5A1.5 1.5 0 0 0 3 2V1a1 1 0 0 0-1-1H1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1v.5A1.5 1.5 0 0 0 3.5 5H4v1H3v1h1v1H3v1h1v1H3v1h1v.5A1.5 1.5 0 0 0 5.5 13H6v1H5v1h1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1h1v-1h-1v-1h1v-1h-1v-1h1v-1h-1v-.5a1.5 1.5 0 0 0 1.5-1.5H12v-1h1V7h-1V6h1V5h-1v-.5A1.5 1.5 0 0 0 10.5 3H10V1.5a.5.5 0 0 0-.5-.5H9V0H8v1H7V0H6v1zm1 2.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5z" />
+                    </svg>
+                </div>
+                <h3 class="h5 fw-bold text-dark card-title">RESTful API Engine</h3>
+                <p class="card-text text-muted small">Powered by an ASP.NET Core backend utilizing Clean Architecture principles, Repository patterns, and optimized DTO data contracts.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm border-0 rounded p-3 bg-white">
+            <div class="card-body">
+                <div class="text-success mb-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-shield-lock-fill" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 0c-.69 0-1.843.265-2.928.

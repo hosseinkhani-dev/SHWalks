@@ -1,6 +1,65 @@
 ﻿@{
-    ViewData["Title"] = "Privacy Policy";
+    ViewData["Title"] = "System Architecture & Security Policy";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<div class="container mt-5">
+    <div class="mb-4">
+        <h1 class="display-6 fw-bold text-dark mb-1">@ViewData["Title"]</h1>
+        <p class="text-muted">An overview of how user sessions, secure data pipelines, and application protocols are managed.</p>
+    </div>
+
+    <div class="card shadow-sm border-0 p-4 mb-4 bg-white">
+        <h2 class="h4 fw-bold text-dark mb-3">1. Decoupled Full-Stack Architecture</h2>
+        <p class="text-muted small">
+            This application is explicitly split into two independent systems to mirror modern cloud-native deployment patterns:
+        </p>
+        <ul class="text-secondary small">
+            <li class="mb-2"><strong>Client-Facing UI Layer (ASP.NET Core MVC):</strong> Acts as a presentation layer. It manages UI state, reads encrypted cookies, and handles optimized network routing using decoupled <code>IHttpClientFactory</code> instances.</li>
+            <li class="mb-2"><strong>Core Backend Engine (RESTful API):</strong> Houses the primary business logic. It handles database communication through EF Core, processes query filters, and manages Identity records independently.</li>
+        </ul>
+    </div>
+
+    <div class="card shadow-sm border-0 p-4 mb-4 bg-white">
+        <h2 class="h4 fw-bold text-dark mb-3">2. Authentication Pipeline (JWT to Cookie Handshake)</h2>
+        <p class="text-muted small">
+            To combine the decoupled nature of a stateless API with the smooth server-side rendering of MVC, this project uses a custom authentication handshake:
+        </p>
+
+        <div class="p-3 bg-light rounded font-monospace text-dark small mb-3 border">
+            [User Login View] ──(Credentials)──> [Backend API Controller]
+            │
+            [UI Cookie Engine] <──(Raw JWT Token)────────(Generates Claims)
+        </div>
+
+        <ul class="text-secondary small">
+            <li class="mb-2"><strong>Token Generation:</strong> When credentials pass validation, the backend identity core wraps username and role keys inside a cryptographically signed, time-locked Json Web Token (JWT).</li>
+            <li class="mb-2"><strong>Frontend State Storage:</strong> Rather than forcing the client side to store raw strings in insecure browser local storage, the MVC controller extracts the claims and encapsulates them into a secure, encrypted HTTP-Only <code>Authentication Cookie</code>.</li>
+        </ul>
+    </div>
+
+    <div class="card shadow-sm border-0 p-4 mb-4 bg-white border-start border-primary border-4">
+        <div class="d-flex align-items-center gap-2 mb-3">
+            <div class="text-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-lightning-charge-fill" viewBox="0 0 16 16">
+                    <path d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09z" />
+                </svg>
+            </div>
+            <h2 class="h4 fw-bold text-dark mb-0">3. Modern Engineering: AI-Assisted Development</h2>
+        </div>
+        <p class="text-muted small">
+            To maximize engineering efficiency, this project embraces modern development practices by utilizing <strong>Artificial Intelligence as a productivity multiplier</strong>:
+        </p>
+        <ul class="text-secondary small">
+            <li class="mb-2"><strong>Backend Ownership:</strong> The entire underlying infrastructure—including Clean Architecture separation, RESTful API design, Identity security handling, repository filters, and database model context mapping—was designed and handwritten from scratch.</li>
+            <li class="mb-2"><strong>AI-Accelerated Frontend:</strong> To streamline delivery, AI tools were leveraged to rapidly prototype, generate, and style the <code>.cshtml</code> Razor views and responsive Bootstrap layouts. </li>
+            <li class="mb-2"><strong>The Value:</strong> This showcases my ability to orchestrate core backend architectures while successfully prompting, debugging, and integrating AI outputs into a fast-paced full-stack workflow.</li>
+        </ul>
+    </div>
+
+    <div class="card shadow-sm border-0 p-4 bg-white">
+        <h2 class="h4 fw-bold text-dark mb-2">Ephemeral Testing Data Policy</h2>
+        <p class="text-muted small mb-0">
+            <strong>Note for evaluators:</strong> Any account credentials created during portfolio testing are securely hashed using ASP.NET Core Identity's <code>PBKDF2</code> implementation inside a localized database container. No real-world user data, emails, or personal telemetry tracking records are captured or transmitted.
+        </p>
+    </div>
+</div>

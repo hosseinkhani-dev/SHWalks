@@ -25,6 +25,19 @@ namespace SHWalks.Infrastructure.Repositories.Walks
             return walk.Id;
         }
 
+        public async Task DeleteAsync(Walk walk)
+        {
+            _dbContext.Walks.Remove(walk);
+
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<Walk?> FindByIdAsync(Guid id)
+        {
+            return await _dbContext.Walks
+                .SingleOrDefaultAsync(walk => walk.Id == id);
+        }
+
         public async Task<List<GetAllWalksDto>> GetAllAsync(
             string? filterOn, string? filterQuery)
         {
@@ -62,7 +75,7 @@ namespace SHWalks.Infrastructure.Repositories.Walks
                     Name = walk.Name,
                     Description = walk.Description,
                     ImageUrl = walk.ImageUrl,
-                    Lenght = walk.Length,
+                    Length = walk.Length,
                     Difficulty = walk.Difficulty.ToString(),
                     AreaDto = new GetAreaDto
                     {
@@ -71,6 +84,12 @@ namespace SHWalks.Infrastructure.Repositories.Walks
                         ImageUrl = walk.Area.ImageUrl
                     }
                 }).SingleOrDefaultAsync();
+        }
+
+        public async Task<bool> IsExistWithAreaId(Guid id)
+        {
+            return await _dbContext.Walks.Where(walk => walk.AreaId == id)
+                .AnyAsync();
         }
 
         public async Task<Walk?> UpdateAsync(Guid id, UpdateWalkDto dto)
@@ -92,11 +111,13 @@ namespace SHWalks.Infrastructure.Repositories.Walks
             walk.Name = !string.IsNullOrWhiteSpace(dto.Name) ? dto.Name : walk.Name;
             walk.Description = !string.IsNullOrWhiteSpace(dto.Description)
                 ? dto.Description : walk.Description;
-            walk.Length = dto.Lenght ?? walk.Length;
+            walk.Length = dto.Length ?? walk.Length;
             walk.ImageUrl = !string.IsNullOrWhiteSpace(dto.ImageUrl)
                 ? dto.ImageUrl : walk.ImageUrl;
             walk.Difficulty = dto.Difficulty ?? walk.Difficulty;
             walk.AreaId = dto.AreaId ?? walk.AreaId;
+
+            await _dbContext.SaveChangesAsync();
 
             return walk;
         }

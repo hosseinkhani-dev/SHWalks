@@ -70,5 +70,13 @@ namespace SHWalks.API.Controllers
 
             return Ok(walkDto);
         }
+
+        [HttpDelete("{id:guid}")]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            await _walkService.DeleteAsync(id);
+
+            return Ok();
+        }
     }
 }

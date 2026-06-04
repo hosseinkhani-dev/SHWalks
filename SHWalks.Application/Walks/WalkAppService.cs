@@ -37,5 +37,12 @@ namespace SHWalks.Application.Walks
 
             return await _walkRepository.AddAsync(walk);
         }
+
+        public async Task DeleteAsync(Guid id)
+        {
+            var walk = await _walkRepository.FindByIdAsync(id);
+
+            await _walkRepository.DeleteAsync(walk);
+        }
     }
 }

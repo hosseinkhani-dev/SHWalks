@@ -59,7 +59,7 @@ namespace SHWalks.API.Controllers
         //[Authorize(Roles = "Writer")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            await _areaRepository.DeleteAsync(id);
+            await _areaService.DeleteAsync(id);
 
             return Ok();
         }

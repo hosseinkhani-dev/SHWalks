@@ -5,5 +5,6 @@ namespace SHWalks.Application.Walks
     public interface IWalkService
     {
         Task<Guid?> AddAsync(AddWalkDto dto);
+        Task DeleteAsync(Guid id);
     }
 }

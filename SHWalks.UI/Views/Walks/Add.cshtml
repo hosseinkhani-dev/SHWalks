@@ -1,0 +1,79 @@
+﻿@model SHWalks.UI.Models.Walks.AddWalkViewModel
+
+@{
+    ViewData["Title"] = "Add New Walk";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+
+            <a asp-action="Index" class="btn btn-outline-secondary mb-3">&larr; Back to Trails</a>
+
+            <div class="card shadow border-0 rounded p-4 bg-white">
+                <h1 class="h2 fw-bold text-dark mb-1">Create Walking Trail</h1>
+                <p class="text-muted mb-4">Register a new hiking path into the application system.</p>
+
+                <form asp-action="Add" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="Name" class="form-label fw-semibold text-secondary">Trail Name</label>
+                        <input asp-for="Name" class="form-type form-control" placeholder="e.g., Salamat Path" />
+                        <span asp-validation-for="Name" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Description" class="form-label fw-semibold text-secondary">Description</label>
+                        <textarea asp-for="Description" class="form-control" rows="3" placeholder="Brief details about the trail layout..."></textarea>
+                        <span asp-validation-for="Description" class="text-danger small"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Length" class="form-label fw-semibold text-secondary">Distance (km)</label>
+                            <input asp-for="Length" type="number" step="0.1" class="form-control" placeholder="0.0" />
+                            <span asp-validation-for="Length" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="File" class="form-label fw-semibold"></label>
+                            <input asp-for="File"
+                                   class="form-control"
+                                   accept="image/png, image/jpeg, image/jpg"
+                                   placeholder="https://example.com/image.jpg" />
+                            <span asp-validation-for="File" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <label asp-for="SelectedDifficulty" class="form-label fw-semibold text-secondary">Difficulty Level</label>
+                            <select asp-for="SelectedDifficulty" asp-items="Model.Difficulties" class="form-select">
+                                <option value="">-- Choose Difficulty --</option>
+                            </select>
+                            <span asp-validation-for="SelectedDifficulty" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+                            <label asp-for="SelectedAreaId" class="form-label fw-semibold text-secondary">Location Area Region</label>
+                            <select asp-for="SelectedAreaId" asp-items="Model.Areas" class="form-select">
+                                <option value="">-- Choose Location Area --</option>
+                            </select>
+                            <span asp-validation-for="SelectedAreaId" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-2 pt-2 border-top">
+                        <button type="submit" class="btn btn-success flex-grow-1 py-2 fw-semibold shadow-sm">Save New Trail</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

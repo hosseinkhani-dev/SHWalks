@@ -5,5 +5,6 @@ namespace SHWalks.Application.Areas
     public interface IAreaService
     {
         Task<Guid> AddAsync(AddAreaDto dto);
+        Task<List<GetAllAreaWalksDto>> GetAllWalksAsync(Guid id);
     }
 }

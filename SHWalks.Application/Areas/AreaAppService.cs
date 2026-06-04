@@ -25,5 +25,10 @@ namespace SHWalks.Application.Areas
 
             return area.Id;
         }
+
+        public async Task<List<GetAllAreaWalksDto>> GetAllWalksAsync(Guid id)
+        {
+            return await _areaRepository.GetAllWalksAsync(id);
+        }
     }
 }

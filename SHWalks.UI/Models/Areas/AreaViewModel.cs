@@ -1,4 +1,4 @@
-﻿namespace SHWalks.UI.Models
+﻿namespace SHWalks.UI.Models.Areas
 {
     public class AreaViewModel
     {

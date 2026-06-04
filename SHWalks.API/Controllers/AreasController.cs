@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SHWalks.Application.Areas;
 using SHWalks.Application.Areas.DTOs;
+using SHWalks.Application.Walks.DTOs;
 
 namespace SHWalks.API.Controllers
 {
@@ -61,6 +62,14 @@ namespace SHWalks.API.Controllers
             await _areaRepository.DeleteAsync(id);
 
             return Ok();
+        }
+
+        [HttpGet("{id:guid}/walks")]
+        public async Task<IActionResult> GetAllWlaks([FromRoute] Guid id)
+        {
+            var dtoList = await _areaService.GetAllWalksAsync(id);
+
+            return Ok(dtoList);
         }
     }
 }

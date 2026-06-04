@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SHWalks.UI.Models
+namespace SHWalks.UI.Models.Areas
 {
     public class UpdateAreaViewModel
     {

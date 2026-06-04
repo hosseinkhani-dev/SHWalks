@@ -1,0 +1,86 @@
+﻿@model SHWalks.UI.Models.Walks.WalkDetailViewModel
+
+@{
+    ViewData["Title"] = Model.Name + " Details";
+
+    // Set badge color dynamically based on difficulty string value
+    var badgeColor = Model.Difficulty == "Easy" ? "bg-success" :
+                     Model.Difficulty == "Medium" ? "bg-warning text-dark" : "bg-danger";
+}
+
+<div class="container mt-5">
+    <div class="mb-4">
+        <a asp-action="Index" class="btn btn-outline-secondary btn-sm rounded px-3">
+            &larr; Back to all trails
+        </a>
+    </div>
+
+    <div class="row g-4">
+
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0 p-4 rounded bg-white h-100">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <span class="badge @badgeColor px-3 py-2 fw-semibold fs-6 shadow-sm">@Model.Difficulty</span>
+                    <span class="text-secondary fw-semibold font-monospace">Distance: @Model.Lenght km</span>
+                </div>
+
+                <h1 class="display-5 fw-bold text-dark mb-2">@Model.Name</h1>
+
+                <hr class="my-3" />
+
+                <h5 class="fw-bold text-dark mb-2">Trail Description</h5>
+                <p class="text-secondary lh-base fs-5">
+                    @(string.IsNullOrEmpty(Model.Description) ? "No description available for this trail route." : Model.Description)
+                </p>
+
+                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <div class="mt-4 text-center">
+                        <img src="@Model.ImageUrl" alt="@Model.Name" class="img-fluid rounded shadow-sm w-100"
+                             style="max-height: 400px; object-fit: cover;" />
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card shadow-sm border-0 rounded overflow-hidden mb-3">
+                <div class="bg-dark text-white p-3 fw-bold">
+                    <i class="bi bi-geo-alt-fill text-success me-1"></i> Location Region
+                </div>
+
+                @if (Model.AreaDto != null && !string.IsNullOrEmpty(Model.AreaDto.Name))
+                {
+                    <img src="@(string.IsNullOrEmpty(Model.AreaDto.ImageUrl) ? "/images/Default-area-image-shiraz.jpg" : Model.AreaDto.ImageUrl)"
+                         alt="@Model.AreaDto.Name" class="w-100" style="height: 200px; object-fit: cover;" />
+
+                    <div class="card-body bg-light">
+                        <h4 class="fw-bold text-dark mb-2">@Model.AreaDto.Name</h4>
+                        <p class="text-muted small mb-3">
+                            This trail is managed under the registered <strong>@Model.AreaDto.Name</strong> regional database environment.
+                        </p>
+
+                        <a asp-controller="Areas" asp-action="WalksByArea" asp-route-id="@Model.AreaDto.Id"
+                           class="btn btn-outline-success btn-sm w-100 fw-semibold shadow-sm">
+                            View All Trails in @Model.AreaDto.Name
+                        </a>
+                    </div>
+                }
+                else
+                {
+                    <div class="card-body text-center py-5 bg-light">
+                        <p class="text-muted mb-0">No assigned area location details found for this route.</p>
+                    </div>
+                }
+            </div>
+
+            <div class="card shadow-sm border-0 p-3 bg-light rounded">
+                <div class="d-flex gap-2">
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-secondary flex-grow-1 fw-semibold btn-sm">Edit Trail</a>
+                    <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger btn-sm">Delete</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

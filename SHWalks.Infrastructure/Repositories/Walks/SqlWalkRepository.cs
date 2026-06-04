@@ -35,8 +35,8 @@ namespace SHWalks.Infrastructure.Repositories.Walks
                     Name = walk.Name,
                     Description = walk.Description,
                     ImageUrl = walk.ImageUrl,
-                    Lenght = walk.Length,
-                    Difficulty = walk.Difficulty,
+                    Length = walk.Length,
+                    Difficulty = walk.Difficulty.ToString(),
                     AreaId = walk.AreaId
                 }).AsQueryable();
 
@@ -63,7 +63,7 @@ namespace SHWalks.Infrastructure.Repositories.Walks
                     Description = walk.Description,
                     ImageUrl = walk.ImageUrl,
                     Lenght = walk.Length,
-                    Difficulty = walk.Difficulty,
+                    Difficulty = walk.Difficulty.ToString(),
                     AreaDto = new GetAreaDto
                     {
                         Id = walk.Area!.Id,

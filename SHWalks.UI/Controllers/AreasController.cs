@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SHWalks.UI.Models;
 using System.Text;
 using System.Text.Json;
 using System.Net.Http.Headers;
+using SHWalks.UI.Models.Areas;
 
 namespace SHWalks.UI.Controllers
 {
@@ -278,6 +278,29 @@ namespace SHWalks.UI.Controllers
 
             ModelState.AddModelError(string.Empty, "Could not delete the area!");
             return RedirectToAction(nameof(Index));
+        }
+
+        // Get Area's Walks
+        [HttpGet]
+        public async Task<IActionResult> WalksByArea(Guid id)
+        {
+            var viewModel = new List<AreaWalksListViewModel>();
+
+            var client = _httpClientFactory.CreateClient();
+
+            var response = await client.GetAsync($"https://localhost:2026/api/areas/{id}/walks");
+
+            if(response.IsSuccessStatusCode)
+            {
+                var responseBody = await response.Content.ReadAsStringAsync();
+
+                var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+
+                viewModel = 
+                    JsonSerializer.Deserialize<List<AreaWalksListViewModel>>(responseBody, options);
+            }
+
+            return View(viewModel);
         }
 
     }

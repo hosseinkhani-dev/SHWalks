@@ -12,5 +12,6 @@ namespace SHWalks.Application.Areas
         Task AddAsync(Area area);
         Task UpdateAsync(UpdateAreaDto dto, Guid id);
         Task<bool> IsExistByIdAsync(Guid areaId);
+        Task<List<GetAllAreaWalksDto>> GetAllWalksAsync(Guid id);
     }
 }

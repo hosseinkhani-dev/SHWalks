@@ -1,9 +1,9 @@
-﻿using SHWalks.Application.Areas.DTOs;
-using SHWalks.Domain;
+﻿using SHWalks.UI.Models.Areas;
+using System.ComponentModel.DataAnnotations;
 
-namespace SHWalks.Application.Walks.DTOs
+namespace SHWalks.UI.Models.Walks
 {
-    public class GetWalkDto
+    public class WalkDetailViewModel
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
@@ -11,6 +11,6 @@ namespace SHWalks.Application.Walks.DTOs
         public double Lenght { get; set; }
         public string? ImageUrl { get; set; }
         public string Difficulty { get; set; }
-        public GetAreaDto AreaDto { get; set; } = new ();
+        public AreaViewModel AreaDto { get; set; } = new();
     }
 }

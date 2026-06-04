@@ -82,5 +82,19 @@ namespace SHWalks.Infrastructure.Repositories.Areas
             return await _dbContext.Areas
                 .Where(area => area.Id ==  areaId).AnyAsync();
         }
+
+        public async Task<List<GetAllAreaWalksDto>> GetAllWalksAsync(Guid id)
+        {
+            return await _dbContext.Walks.Where(walk => walk.AreaId == id)
+                .Select(walk => new GetAllAreaWalksDto
+                {
+                    Id = walk.Id,
+                    Name = walk.Name,
+                    Description = walk.Description,
+                    Difficulty = walk.Difficulty.ToString(),
+                    Lenght = walk.Length,
+                    ImageUrl = walk.ImageUrl,
+                }).ToListAsync();
+        }
     }
 }

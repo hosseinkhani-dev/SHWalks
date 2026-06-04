@@ -1,8 +1,6 @@
-﻿using SHWalks.Domain;
-
-namespace SHWalks.Application.Walks.DTOs
+﻿namespace SHWalks.UI.Models.Walks
 {
-    public class GetAllWalksDto
+    public class GetAllWalkViewModel
     {
         public Guid Id { get; set; }
         public required string Name { get; set; }

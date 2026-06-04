@@ -1,0 +1,101 @@
+﻿@model List<SHWalks.UI.Models.Walks.GetAllWalkViewModel>
+
+@{
+    ViewData["Title"] = "All Walking Trails";
+}
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="display-5 text-dark fw-bold mb-1">Explore Trails</h2>
+            <p class="text-muted">Discover and manage beautiful walking routes.</p>
+        </div>
+        <a asp-action="Add" class="btn btn-success px-4 fw-semibold shadow-sm">Add New Walk</a>
+    </div>
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="alert alert-secondary text-center p-5 rounded shadow-sm" role="alert">
+            <h4 class="alert-heading fw-bold mb-2">No Walks Found</h4>
+            <p class="text-muted mb-0">Get started by creating the very first trail.</p>
+        </div>
+    }
+    else
+    {
+        <div class="d-block d-md-none">
+            @foreach (var walk in Model)
+            {
+                <div class="card shadow-sm border-0 mb-3 rounded p-3 bg-white">
+                    <div class="d-flex justify-content-between align-items-start gap-2">
+
+                        <div class="flex-grow-1" style="min-width: 0;">
+                            <div class="fw-bold text-dark fs-5 text-truncate">@walk.Name</div>
+                            <small class="text-muted d-block text-truncate mb-2" style="max-width: 100%;">@walk.Description</small>
+
+                            <div class="d-flex gap-2 align-items-center">
+                                <span class="badge bg-light text-dark border font-monospace small">@walk.Length km</span>
+                                @{
+                                    var mColor = walk.Difficulty == "Easy" ? "bg-success" :
+                                                 walk.Difficulty == "Medium" ? "bg-warning text-dark" : "bg-danger";
+                                }
+                                <span class="badge @mColor small">@walk.Difficulty</span>
+                            </div>
+                        </div>
+
+                        <div class="flex-shrink-0">
+                            <img src="@(string.IsNullOrEmpty(walk.ImageUrl) ? "/images/Default-area-image-shiraz.jpg" : walk.ImageUrl)"
+                                 alt="@walk.Name"
+                                 class="rounded shadow-sm"
+                                 style="width: 75px; height: 60px; object-fit: cover;" />
+                        </div>
+
+                    </div>
+                </div>
+            }
+        </div> <div class="card shadow-sm border-0 rounded overflow-hidden d-none d-md-block">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col" style="width: 80px;">Image</th>
+                            <th scope="col">Trail Name</th>
+                            <th scope="col">Distance</th>
+                            <th scope="col">Difficulty</th>
+                            <th scope="col" class="text-end px-4">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var walk in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <img src="@(string.IsNullOrEmpty(walk.ImageUrl) ? "/images/Default-area-image-shiraz.jpg" : walk.ImageUrl)"
+                                         alt="@walk.Name"
+                                         class="rounded"
+                                         style="width: 60px; height: 45px; object-fit: cover;" />
+                                </td>
+                                <td>
+                                    <div class="fw-bold text-dark fs-5">@walk.Name</div>
+                                    <small class="text-muted d-block text-truncate" style="max-width: 300px;">@walk.Description</small>
+                                </td>
+                                <td class="fw-semibold">@walk.Length km</td>
+                                <td>
+                                    @{
+                                        var badgeColor = walk.Difficulty == "Easy" ? "bg-success" :
+                                                         walk.Difficulty == "Medium" ? "bg-warning text-dark" : "bg-danger";
+                                    }
+                                    <span class="badge @badgeColor">@walk.Difficulty</span>
+                                </td>
+                                <td class="text-end px-4">
+                                    <div class="btn-group gap-1">
+                                        <a asp-action="Details" asp-route-id="@walk.Id" class="btn btn-outline-success btn-sm rounded">Details</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+</div>

@@ -74,11 +74,3 @@ dotnet ef database update --project SHWalks.Infrastructure --startup-project SHW
 Configure your IDE to launch both `SHWalks.API` and `SHWalks.UI` at the same time, or use the terminal from their respective directories:
 ```bash
 dotnet run
-
-```
-
-
-
-```
-
-```
